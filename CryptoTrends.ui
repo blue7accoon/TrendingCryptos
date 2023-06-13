@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1240</width>
+    <height>850</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Trending on Cryptos</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">* {
+	font-family: 微软雅黑 Light;
+	font-size: 13px;
+}
+
+#label_refresh_time:hover{
+	font-weight: bold;
+	color: rgb(15,51,145);
+}
+
+QProgressBar {
+	text-align: center;
+ 	min-height: 15px;
+    max-height: 15px;
+	border-radius: 6px;
+}
+QProgressBar::chunk {
+	background-color: #9c27b0;
+	/*width: 7px;*/
+	border-radius: 6px;
+	/*margin: 0.5px;*/
+}
+
+QLineEdit{
+	background-color:white;
+}
+QLineEdit:hover{
+	background-color:white;
+	border: 1px solid rgb(0,122,204);
+}
+
+#confirm_btn {
+	color: white;
+	background-color: rgb(29, 195, 225);
+    border-radius: 10px;
+	min-height: 25px;
+    max-height: 25px;
+}
+#confirm_btn:hover {
+	background-color: rgb(85, 0, 255);
+}
+#confirm_btn:pressed {
+	background-color: rgb(131, 131, 131);
+}
+
+#table_trend {
+	font-family: 幼圆;
+	font-size: 13px;
+}
+
+QGroupBox {
+	border-radius: 5px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(191, 191, 191);
+	padding-top: 6px;
+	padding-bottom: 0px;
+    margin-top: 7px;
+}
+QGroupBox::title {
+    subcontrol-origin: margin;
+    subcontrol-position: top left;
+    padding: 0 3px;
+    margin-top: 0px;
+}
+
+QTabBar::tab
+{
+    min-width: 60px;
+    border: 1px solid;
+	border-color: rgb(191, 191, 191);
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    padding: 5px;
+}
+ 
+QTabBar::tab:!selected
+{
+    margin-top: 5px;
+}
+ 
+QTabBar::tab:selected
+{
+    font-size: 14px;
+    font-weight: bold;
+	background-color: white;
+	border-bottom: 0px;
+}
+
+QScrollBar:vertical
+{
+    background:transparent;
+    padding-top:10px;
+    padding-bottom:10px;
+    padding-left:4px;
+    padding-right:4px;
+    border-left:1px solid transparent;;
+}
+ 
+QScrollBar::handle:vertical
+{
+    background: rgb(55, 71, 79);
+    border-radius:6px;
+    min-height:10px;
+    border-radius:4px;
+}
+ 
+QScrollBar::handle:vertical:hover
+{
+    background: rgb(49, 53, 61);
+    border-radius:4px;
+}
+ 
+QScrollBar::add-page
+{
+    background:transparent;
+}
+ 
+QScrollBar::sub-page
+{
+    background:transparent;
+}
+
+QScrollBar::add-line:vertical   
+{
+    height:9px;width:8px;
+    border-image:;
+    subcontrol-position:bottom;
+}
+QScrollBar::sub-line:vertical   
+{
+    height:9px;width:8px;
+    border-image:;
+    subcontrol-position:top;
+}
+ </string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout_2">
+    <item>
+     <widget class="QFrame" name="frame">
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::Panel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <property name="lineWidth">
+       <number>1</number>
+      </property>
+      <property name="midLineWidth">
+       <number>0</number>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,6">
+       <property name="spacing">
+        <number>6</number>
+       </property>
+       <property name="topMargin">
+        <number>12</number>
+       </property>
+       <property name="bottomMargin">
+        <number>12</number>
+       </property>
+       <item>
+        <widget class="QLabel" name="label_refresh_time">
+         <property name="text">
+          <string>距离下次刷新：</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QProgressBar" name="pgsBar_refresh_time">
+         <property name="value">
+          <number>62</number>
+         </property>
+         <property name="textVisible">
+          <bool>true</bool>
+         </property>
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="invertedAppearance">
+          <bool>false</bool>
+         </property>
+         <property name="textDirection">
+          <enum>QProgressBar::TopToBottom</enum>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="tab">
+       <attribute name="title">
+        <string>趋势</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="1,7,3">
+          <item>
+           <widget class="QGroupBox" name="groupBox">
+            <property name="title">
+             <string>显示条数</string>
+            </property>
+            <layout class="QHBoxLayout" name="horizontalLayout_6">
+             <item>
+              <widget class="QComboBox" name="cBox_range"/>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QGroupBox" name="groupBox_1">
+            <property name="title">
+             <string>数据筛选</string>
+            </property>
+            <layout class="QHBoxLayout" name="horizontalLayout_2">
+             <item>
+              <widget class="QRadioButton" name="raBtn_HAsc">
+               <property name="text">
+                <string>时涨跌幅_ASC</string>
+               </property>
+               <property name="checkable">
+                <bool>true</bool>
+               </property>
+               <property name="checked">
+                <bool>false</bool>
+               </property>
+               <attribute name="buttonGroup">
+                <string notr="true">btngrp_screen</string>
+               </attribute>
+              </widget>
+             </item>
+             <item>
+              <widget class="QRadioButton" name="raBtn_HDesc">
+               <property name="text">
+                <string>时涨跌幅_DESC</string>
+               </property>
+               <attribute name="buttonGroup">
+                <string notr="true">btngrp_screen</string>
+               </attribute>
+              </widget>
+             </item>
+             <item>
+              <widget class="QRadioButton" name="raBtn_DAsc">
+               <property name="text">
+                <string>日涨跌幅_ASC</string>
+               </property>
+               <attribute name="buttonGroup">
+                <string notr="true">btngrp_screen</string>
+               </attribute>
+              </widget>
+             </item>
+             <item>
+              <widget class="QRadioButton" name="raBtn_DDesc">
+               <property name="text">
+                <string>日涨跌幅_DESC</string>
+               </property>
+               <attribute name="buttonGroup">
+                <string notr="true">btngrp_screen</string>
+               </attribute>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QGroupBox" name="groupBox_2">
+            <property name="title">
+             <string>刷新间隔</string>
+            </property>
+            <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="1,1,1">
+             <item>
+              <widget class="QLineEdit" name="lE_refresh"/>
+             </item>
+             <item>
+              <widget class="QComboBox" name="cBox_refresh"/>
+             </item>
+             <item>
+              <widget class="QPushButton" name="confirm_btn">
+               <property name="text">
+                <string>确认</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QScrollArea" name="scrollArea">
+          <property name="widgetResizable">
+           <bool>true</bool>
+          </property>
+          <widget class="QWidget" name="scrollAreaWidgetContents">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>1196</width>
+             <height>627</height>
+            </rect>
+           </property>
+           <layout class="QHBoxLayout" name="horizontalLayout_5">
+            <item>
+             <widget class="QTableWidget" name="table_trend"/>
+            </item>
+           </layout>
+          </widget>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_2">
+       <attribute name="title">
+        <string>图表分析</string>
+       </attribute>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1240</width>
+     <height>19</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+ <buttongroups>
+  <buttongroup name="btngrp_screen"/>
+ </buttongroups>
+</ui>
